@@ -1,0 +1,87 @@
+.user_management {
+  .heading {
+    color: #000;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    // margin-bottom: 0px !important;
+  }
+  .userCard {
+    background: #eee;
+    font-family: "Nunito Sans", sans-serif !important;
+    padding: 0px 20px;
+    height: 100%;
+    border-top: 2px solid #f72586;
+    border-radius: 8px;
+    background: #ffeef6;
+  }
+  .item {
+    color: #000;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 0px !important;
+  }
+  .value {
+    color: #403f3f;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 8px !important;
+  }
+}
+.radioButtons {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  .ant-radio-group {
+    border-radius: 12px !important;
+    border: 1px solid #e4e8ed !important;
+    background: #fff !important;
+    padding: 8px !important;
+  }
+  .ant-radio-button-wrapper {
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 4px 12px !important;
+    height: auto !important;
+    span {
+      color: #040524 !important;
+      text-align: center !important;
+      font-family: Arial !important;
+      font-size: 16px !important;
+      font-style: normal;
+      font-weight: 700 !important;
+      line-height: normal;
+      @media screen and (max-width: 600px) {
+        font-size: 12px !important;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      padding: 4px 6px !important;
+    }
+  }
+  .ant-radio-button-wrapper:not(:last-child) {
+    margin-right: 8px;
+    @media screen and (max-width: 600px) {
+      margin-right: 2px;
+    }
+  }
+  .ant-radio-button-wrapper::before {
+    content: "" !important;
+    width: 0px !important;
+  }
+  .ant-radio-button-wrapper-checked {
+    background: #f72586 !important;
+    border-radius: 8px !important;
+    span {
+      color: #fff !important;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+.deposit_history {
+  label {
+    color: #22272E;
+    font-weight: 500;
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 32px;
+    font-size: 16px !important;
+  }
+  .title {
+    color: #22272E;
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 32px;
+    margin-bottom: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .selectBox {
+    height: 50px !important;
+    // margin-top: 20px;
+
+    .ant-select-selector {
+      border: 1px solid #c1c1c1;
+      box-shadow: 0 -2px 0px 0px #c1c1c1 ;  
+      padding: 40px auto !important;
+    
+      //   height: 50px !important;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center !important;
+      .ant-select-selection-item {
+        background: transparent !important;
+        color: #22272E !important;
+        font-family: "Nunito Sans", sans-serif !important;
+        font-size: 16px !important;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+  }
+  .inputBox {
+    border: 1px solid #c1c1c1;
+    box-shadow: 0 -2px 0px 0px #c1c1c1 ; 
+    background: white  !important;
+    font-size: 20px !important;
+    height: 50px !important;
+    font-family: "Nunito Sans", sans-serif !important;
+    @media screen and (max-width: 600px) {
+      font-size: 16px !important;
+    }
+  }
+}
+.action-dropdown {
+  .item {
+    display: flex;
+    display: flex;
+    // width: 131px;
+    padding: 8px 12px;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px 8px 0px 0px;
+    background: var(--greys-primary-white, #fff);
+  }
+  .item:hover {
+    background-color: #876472 !important;
+    border-radius: 4px !important;
+  }
+  span {
+    color: var(--text-primary, #59253b);
+    font-family: Arial;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .ant-dropdown-menu-item {
+    background-color: white !important;
+    padding: 0 !important;
+  }
+}

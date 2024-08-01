@@ -1,0 +1,31 @@
+.mainHeading {
+  color: #22272e;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.dashboardCard {
+  border-top: 2px solid #f72586;
+  border-radius: 8px;
+  background: #ffeef6;
+  padding: 16px;
+  .heading {
+    color: #040524;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1rem;
+    margin-top: 0px !important;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .amount {
+    color: #f72586;
+    font-size: 1.5rem;
+    margin: 0px !important;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}

@@ -1,0 +1,89 @@
+.loginContainer {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  overflow-y: hidden;
+  padding: 20px;
+  .loginContentContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // padding: 20px !important;
+    .loginCard {
+      border-radius: 12px;
+      border-top: 2px solid #f72586;
+      background: #ffeef6;
+      padding: 20px 56px;
+      max-width: 543px;
+      .title {
+        color: black;
+        text-align: center;
+        font-family: "Nunito Sans", sans-serif;
+        font-size: 50px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 0px !important;
+        @media screen and (max-width: 600px) {
+          font-size: 32px;
+        }
+      }
+      .inputBox {
+        background: #ffeef6 !important;
+        color: #040524;
+        border: 1px solid #f72586 !important;
+        // height: 94px;
+        padding: 12px !important;
+        input {
+          background: #ffeef6 !important;
+          color: #040524;
+          //   text-align: center;
+          font-family: "Nunito Sans", sans-serif;
+          font-size: 22px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          @media screen and (max-width: 600px) {
+            font-size: 20px;
+          }
+        }
+        .mobilePrefix {
+          color: #f72586;
+          //   text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: "Nunito Sans", sans-serif;
+          font-size: 24px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          @media screen and (max-width: 600px) {
+            font-size: 20px;
+          }
+        }
+      }
+      .resendOtp {
+        color: #040524;
+        text-align: center;
+        cursor: pointer;
+        font-family: "Nunito Sans", sans-serif;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-top: -16px !important;
+        margin-bottom: 27px !important;
+        @media screen and (max-width: 600px) {
+          font-size: 20px;
+        }
+        span {
+          color: #040524 !important;
+        }
+      }
+    }
+  }
+}
