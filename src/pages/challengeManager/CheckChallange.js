@@ -8,21 +8,16 @@ function CheckChallange() {
     try {
       setData(null);
       setLoading(true);
-      const url = `https://ludo-king-room-code-api.p.rapidapi.com/result?code=${values?.room_code}`;
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "127c9351d5msh54b0b948e7da6ebp121e59jsn9163e2425ed7",
-          "X-RapidAPI-Host": "ludo-king-room-code-api.p.rapidapi.com",
-        },
-      };
-      let checkCodeRes;
-      checkCodeRes = await fetch(url, options);
-      let result = await checkCodeRes.text();
-      result = JSON.parse(result);
-      setData(result);
+
+      // checkCodeRes = await fetch(url, options);
+      const response = await API_MANAGER.checkRoomCode({
+        roomCode: values?.room_code,
+      });
+      // let result = await checkCodeRes.text();
+      // result = JSON.parse(result);
+      setData(response?.data?.data?.result);
       setLoading(false);
+      console.log(response?.data?.data?.result);
     } catch (error) {
       setLoading(false);
       message.error("Something went wrong.");
@@ -61,38 +56,42 @@ function CheckChallange() {
 
           <Row gutter={24}>
             <Col span={24}>
-              <p>Game Status: {data?.estatus}</p>
+              <p>Game Status: {data?.status}</p>
             </Col>
             <Col span={12}>
-              <p>
+              {/* <p>
                 Creator Name:{" "}
                 {data?.creator_id === data?.player1_id
                   ? data?.player1_name
                   : data?.player2_name}
-              </p>
+              </p> */}
+              <p>Creator Name: {data?.ownername}</p>
             </Col>
             <Col span={12}>
               <p>
                 Acceptor Name:{" "}
-                {data?.creator_id === data?.player1_id
+                {/* {data?.creator_id === data?.player1_id
                   ? data?.player2_name
-                  : data?.player1_name}
+                  : data?.player1_name} */}
+                {data?.player1name}
               </p>
             </Col>
             <Col span={12}>
               <p>
                 Creator Status:{" "}
-                {data?.creator_id === data?.player1_id
+                {/* {data?.creator_id === data?.player1_id
                   ? data?.player1_status
-                  : data?.player2_status}
+                  : data?.player2_status} */}
+                {data?.ownerstatus}
               </p>
             </Col>
             <Col span={12}>
               <p>
                 Acceptor Status:{" "}
-                {data?.creator_id === data?.player1_id
+                {/* {data?.creator_id === data?.player1_id
                   ? data?.player2_status
-                  : data?.player1_status}
+                  : data?.player1_status} */}
+                {data?.player1status}
               </p>
             </Col>
           </Row>

@@ -162,11 +162,7 @@ function ViewChallenge() {
               <div>
                 <p className="ludoKingName">
                   Ludo King Name:{" "}
-                  <span className="">
-                    {roomCodeData?.creator_id === roomCodeData?.player1_id
-                      ? roomCodeData?.player1_name
-                      : roomCodeData?.player2_name}{" "}
-                  </span>
+                  <span className="">{roomCodeData?.ownername}</span>
                 </p>
               </div>
               <div>
@@ -189,9 +185,8 @@ function ViewChallenge() {
                 <p className="ludoKingName">
                   Ludo King Status:{" "}
                   <span>
-                    {roomCodeData?.creator_id === roomCodeData?.player1_id &&
-                    roomCodeData?.player1_status
-                      ? roomCodeData?.player1_status
+                    {roomCodeData?.ownerstatus
+                      ? roomCodeData?.ownerstatus
                       : "Not Found"}
                   </span>
                 </p>
@@ -297,9 +292,10 @@ function ViewChallenge() {
                 <p className="ludoKingName">
                   Ludo King Name:{" "}
                   <span className="">
-                    {roomCodeData?.creator_id === roomCodeData?.player1_id
+                    {/* {roomCodeData?.creator_id === roomCodeData?.player1_id
                       ? roomCodeData?.player2_name
-                      : roomCodeData?.player1_name}
+                      : roomCodeData?.player1_name} */}
+                    {roomCodeData?.player1name}
                   </span>
                 </p>
               </div>
@@ -328,9 +324,8 @@ function ViewChallenge() {
                 <p className="ludoKingName">
                   Ludo King Status:{" "}
                   <span>
-                    {roomCodeData?.creator_id === roomCodeData?.player1_id &&
-                    roomCodeData?.player1_status
-                      ? roomCodeData?.player2_status
+                    {roomCodeData?.player1status
+                      ? roomCodeData?.player1status
                       : "Not Found"}
                   </span>
                 </p>
