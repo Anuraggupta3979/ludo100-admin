@@ -1,6 +1,6 @@
 import { Button, Col, Form, Input, Row, message } from "antd";
 import React, { useState } from "react";
-
+import API_MANAGER from "../../API";
 function CheckChallange() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
