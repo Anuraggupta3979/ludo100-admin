@@ -184,6 +184,8 @@ function ViewChallenge() {
                   <span>
                     {roomCodeData?.ownerstatus
                       ? roomCodeData?.ownerstatus
+                      : roomCodeData?.result
+                      ? roomCodeData?.result
                       : "Not Found"}
                   </span>
                 </p>

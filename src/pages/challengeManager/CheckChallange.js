@@ -82,7 +82,11 @@ function CheckChallange() {
                 {/* {data?.creator_id === data?.player1_id
                   ? data?.player1_status
                   : data?.player2_status} */}
-                {data?.ownerstatus}
+                {data?.ownerstatus
+                  ? data?.ownerstatus
+                  : data?.result
+                  ? data?.result
+                  : "Not Foundssss"}
               </p>
             </Col>
             <Col span={12}>
@@ -91,7 +95,7 @@ function CheckChallange() {
                 {/* {data?.creator_id === data?.player1_id
                   ? data?.player2_status
                   : data?.player1_status} */}
-                {data?.player1status}
+                {data?.player1status ? data?.player1status : "Not Found"}
               </p>
             </Col>
           </Row>
