@@ -14,7 +14,7 @@ function ViewChallenge() {
       const response = await API_MANAGER.checkRoomCode({
         roomCode: Room_code,
       });
-      setRoomCodeData(response?.data?.data);
+      setRoomCodeData(response?.data?.data?.result);
     } catch (error) {}
   };
   function winnAmount(gameAmount) {
@@ -29,10 +29,7 @@ function ViewChallenge() {
     try {
       const response = await API_MANAGER.getChallengeById(id);
       setData(response?.data?.data);
-      if (
-        response?.data?.data?.Status === "conflict" &&
-        response?.data?.data?.Room_code
-      )
+      if (response?.data?.data?.Room_code)
         await checkRoomCode(response?.data?.data?.Room_code);
     } catch (error) {
       // message.error("Something went wrong!");
