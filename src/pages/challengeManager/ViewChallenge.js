@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import API_MANAGER from "../../API";
 import { Row, message, Button, Col, Input } from "antd";
 import moment from "moment";
+import { debounce } from "lodash";
 function ViewChallenge() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -84,8 +85,12 @@ function ViewChallenge() {
       }
     }
   };
+  const fetchDataDebounced = debounce(async (id) => {
+    if (id) await getData();
+  }, 300);
   useEffect(() => {
-    if (id) getData();
+    fetchDataDebounced(id);
+    return fetchDataDebounced.cancel;
   }, [id]);
   return (
     <div className="viewGameContainer">
@@ -414,4 +419,4 @@ function ViewChallenge() {
   );
 }
 
-export default ViewChallenge;
+export default React.memo(ViewChallenge);
