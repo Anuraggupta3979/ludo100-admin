@@ -34,6 +34,7 @@ import { message } from "antd";
 import BlockedUsers from "../pages/userManager/BlockedUsers";
 import SiteSetting from "../pages/userManager/SiteSetting";
 import CheckChallange from "../pages/challengeManager/CheckChallange";
+import RedeemHistory from "../pages/transactionManager/RedeemHistory";
 const CustomRoutes = () => {
   const [data, setData] = useState({});
   const [permissions, setPermissions] = useState({});
@@ -67,6 +68,9 @@ const CustomRoutes = () => {
         )}
         {permissions?.deposit_history && (
           <Route path="/deposit-history" element={<DepositHistory />} />
+        )}
+        {permissions?.deposit_history && (
+          <Route path="/redeem-history" element={<RedeemHistory />} />
         )}
         {permissions?.panelty_and_bonus && (
           <Route path="/penalty-bonus" element={<PenaltyBonus />} />

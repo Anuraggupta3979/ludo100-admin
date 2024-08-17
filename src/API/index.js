@@ -327,6 +327,17 @@ const API_MANAGER = {
       },
     });
   },
+  getRedeemHistory: (params) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `transaction/redeem-all`,
+      method: "GET",
+      params: params,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
   getWithdrawHistory: (params) => {
     return HELPERS.secureRequest({
       baseURL,

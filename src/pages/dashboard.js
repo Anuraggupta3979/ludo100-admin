@@ -249,6 +249,14 @@ function Dashboard() {
               </Col>{" "}
               <Col xs={24} sm={12} lg={6}>
                 <div className="dashboardCard">
+                  <p className="heading">TOTAL REDEEM</p>
+                  <p className="amount">
+                    {totalDepositCounts?.totalRedeem?.[0]?.totalAmount}
+                  </p>
+                </div>
+              </Col>
+              <Col xs={24} sm={12} lg={6}>
+                <div className="dashboardCard">
                   <p className="heading">TOTAL BONUS</p>
                   <p className="amount">
                     {todayData?.totalBonus?.[0]?.totalAmount}
@@ -336,6 +344,14 @@ function Dashboard() {
               <Card
                 name={"Deposit"}
                 amount={todayData?.depositEntry?.[0]?.totalAmount}
+              />
+              <Card
+                name={"Redeem"}
+                amount={todayData?.redeemEntry?.[0]?.totalAmount}
+              />
+              <Card
+                name={"Bonus"}
+                amount={todayData?.bonusEntry?.[0]?.totalAmount}
               />
               <Card
                 name={"Total Withdrawal"}

@@ -448,6 +448,24 @@ const CustomLayout = ({ permissions, children }) => {
           },
         ];
       }
+      if (permissions?.deposit_history) {
+        tempChildren = [
+          ...tempChildren,
+          {
+            key: "Redeem History",
+            label: (
+              <p
+                className="menu_link"
+                onClick={() => {
+                  navigate("/redeem-history");
+                }}
+              >
+                Redeem History
+              </p>
+            ),
+          },
+        ];
+      }
       if (permissions?.bonus_history) {
         tempChildren = [
           ...tempChildren,
@@ -1061,6 +1079,17 @@ const CustomLayout = ({ permissions, children }) => {
                   className="subLink"
                 >
                   Deposit History
+                </h3>
+              )}
+              {permissions?.deposit_history && (
+                <h3
+                  onClick={() => {
+                    navigate("/redeem-history");
+                    setOpenDrawer(false);
+                  }}
+                  className="subLink"
+                >
+                  Redeem History
                 </h3>
               )}
               {permissions?.bonus_history && (
