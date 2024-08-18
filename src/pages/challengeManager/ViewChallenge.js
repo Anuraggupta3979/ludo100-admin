@@ -20,10 +20,10 @@ function ViewChallenge() {
   };
   function winnAmount(gameAmount) {
     let profit = null;
-    if (gameAmount >= 50 && gameAmount <= 250) profit = (gameAmount * 5) / 100;
-    else if (gameAmount > 250 && gameAmount <= 500)
-      profit = (gameAmount * 5) / 100;
-    else if (gameAmount > 500) profit = (gameAmount * 5) / 100;
+    if (gameAmount >= 50 && gameAmount <= 250) profit = (gameAmount * 7) / 100;
+    else if (gameAmount > 250 && gameAmount <= 950)
+      profit = (gameAmount * 7) / 100;
+    else if (gameAmount > 950) profit = (gameAmount * 5) / 100;
     return gameAmount - profit;
   }
   const getData = async () => {
