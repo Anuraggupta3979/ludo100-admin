@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from "react";
 import API_MANAGER from "../../API";
-import { Button, message, Table } from "antd";
+import { Button, Col, Form, Input, message, Row, Table } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import CustomPagination from "../../components/common/CustomPagination";
 function ChallengeByStatus({ status }) {
   const [data, setData] = useState({});
+  const [search, setSearch] = useState(null);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const getData = async () => {
     setLoading(true);
     try {
-      const response = await API_MANAGER.getChallengeByStatus({
-        limit: 20,
-        page: page,
+      let params = {
+        ...page,
         status: status,
-      });
+      };
+      if (search) {
+        params["Room_code"] = search;
+      }
+      const response = await API_MANAGER.getChallengeByStatus(params);
       setData(response?.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-
       message.error("Something went wrong!");
     }
   };
@@ -107,6 +110,37 @@ function ChallengeByStatus({ status }) {
   }, [page]);
   return (
     <div>
+      <Form layout="vertical">
+        <Row gutter={24} align={"middle"}>
+          <Col xs={12} lg={6}>
+            <Form.Item label="Search by roomcode " name={"search"}>
+              <Input
+                placeholder="Enter roomcode"
+                className="inputBox"
+                onChange={(e) => setSearch(e?.target?.value)}
+              />
+            </Form.Item>
+          </Col>
+
+          <Col className="mt-32">
+            <Form.Item>
+              <Button
+                className=""
+                onClick={() => {
+                  if (page?.page !== 1)
+                    setPage({
+                      ...page,
+                      page: 1,
+                    });
+                  else getData();
+                }}
+              >
+                Search
+              </Button>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
       <Table
         columns={columns}
         dataSource={data?.result}
