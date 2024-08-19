@@ -74,14 +74,23 @@ function ViewUser() {
     setIsVisible(true);
     try {
       values.amount = Number(values?.amount);
-      if (action === "Withdraw") values.amount *= -1;
-      const response = await API_MANAGER.userMoneyManage(values);
-      message.success(
-        action == "Withdraw"
-          ? "Money withdrawn successfully"
-          : "Money deposited successfully"
-      );
+      if (action === "WithdrawAdmin") {
+        const response = await API_MANAGER.withdrawUpdateByAdminManual({
+          ...values,
+          user_id: id,
+        });
+        message.success("Withdraw successfull.");
+      } else {
+        if (action === "Withdraw") values.amount *= -1;
+        const response = await API_MANAGER.userMoneyManage(values);
+        message.success(
+          action == "Withdraw"
+            ? "Money withdrawn successfully"
+            : "Money deposited successfully"
+        );
+      }
     } catch (e) {
+      console.log(e, "asdsaaf");
       message.error("Insufficient balance in User's account");
     } finally {
       getData();
@@ -345,11 +354,26 @@ function ViewUser() {
           </Col>
           <Col xs={24} sm={12} md={8} lg={6}>
             <div className="userCard">
-              <p className="item">WITHDRAW MONEY</p>
+              <p className="item">Cut MONEY</p>
               <p className="value">
                 <Button
                   onClick={() => {
                     setAction("Withdraw");
+                    setIsCredVisible(true);
+                  }}
+                >
+                  Cut Money
+                </Button>
+              </p>
+            </div>
+          </Col>
+          <Col xs={24} sm={12} md={8} lg={6}>
+            <div className="userCard">
+              <p className="item">Withdraw MONEY</p>
+              <p className="value">
+                <Button
+                  onClick={() => {
+                    setAction("WithdrawAdmin");
                     setIsCredVisible(true);
                   }}
                 >

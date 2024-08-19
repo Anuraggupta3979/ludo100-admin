@@ -241,6 +241,17 @@ const API_MANAGER = {
       },
     });
   },
+  withdrawUpdateByAdminManual: (data) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `transaction/withdraw/update-by-admin`,
+      method: "POST",
+      data: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
   getDashboardChallenge: (params) => {
     return HELPERS.secureRequest({
       baseURL,
