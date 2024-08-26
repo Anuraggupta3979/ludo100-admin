@@ -1,21 +1,20 @@
 import { Image, Table, message } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import CustomPagination from "../../components/common/CustomPagination";
 import API_MANAGER from "../../API";
 import { useNavigate } from "react-router-dom";
+import CustomPaginationWithPageSize from "../../components/common/CustomPaginationWithPageSize";
 
 function VerifiedKYC() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({ page: 1, limit: 20 });
   const [data, setData] = useState();
   const navigate = useNavigate();
 
   const getData = async () => {
     try {
       const params = {
+        ...page,
         status: "verified",
-        limit: 10,
-        page: page,
       };
       const response = await API_MANAGER.getPendingKYC(params);
       setData(response?.data?.data);
@@ -26,7 +25,6 @@ function VerifiedKYC() {
   useEffect(() => {
     getData();
   }, [page]);
-
   const columns = [
     {
       title: "No.",
@@ -35,16 +33,16 @@ function VerifiedKYC() {
       render: (_, row, index) => {
         return (
           <span className="cursor-pointer">
-            {(page - 1) * 10 + (index + 1)}
+            {(page?.page - 1) * page?.limit + (index + 1)}
           </span>
         );
       },
     },
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
+    // {
+    //   title: "ID",
+    //   dataIndex: "id",
+    //   key: "id",
+    // },
     {
       title: "Profile name",
       dataIndex: "Name",
@@ -137,11 +135,10 @@ function VerifiedKYC() {
           x: "calc(768px)",
         }}
       />
-      <CustomPagination
+      <CustomPaginationWithPageSize
         currentPage={page}
         setCurrentPage={setPage}
         total={data?.totalCount}
-        itemPerPage={10}
       />
     </div>
   );

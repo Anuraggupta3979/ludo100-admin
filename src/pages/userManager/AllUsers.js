@@ -14,22 +14,23 @@ import infoIcon from "../../Assets/infoIcon.svg";
 import API_MANAGER from "../../API";
 import CustomPagination from "../../components/common/CustomPagination";
 import { useNavigate } from "react-router-dom";
+import CustomPaginationWithPageSize from "../../components/common/CustomPaginationWithPageSize";
 
 function AllUsers() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({
+    page: 1,
+    limit: 20,
+  });
   const [data, setData] = useState();
   const [search, setSearch] = useState("");
   const [searchType, setSearchType] = useState("");
   const [searchByStatus, setSearchByStatus] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const getData = async () => {
     try {
       let params = {
-        limit: 20,
-        page: page,
-        // search: search,
-        // searchType: searchType,
-        // SearchStatus: searchByStatus,
+        ...page,
       };
       if (search && searchType) {
         params["search"] = search;
@@ -38,25 +39,30 @@ function AllUsers() {
       if (searchByStatus) {
         params["searchStatus"] = searchByStatus;
       }
+      setLoading(true);
       const response = await API_MANAGER.getAllUsers(params);
       setData(response?.data?.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
+
       message.error("Something went wrong!");
     }
   };
   const blockUnblockPlayer = async (player) => {
-    const confirmBox = window.confirm(`are you sure that you want to block ${player?.Name}`);
+    const confirmBox = window.confirm(
+      `are you sure that you want to block ${player?.Name}`
+    );
     if (confirmBox === true) {
       const userType = player?.user_type == "Block" ? "User" : "Block";
 
       try {
         const response = await API_MANAGER.blockUnblockPlayer(player?._id, {
-          _id:player?._id,
+          _id: player?._id,
           user_type: userType,
         });
         message.success("Updated successfully!");
         getData();
-
       } catch (error) {
         message.error("Something went wrong!");
       }
@@ -129,16 +135,16 @@ function AllUsers() {
       render: (_, row, index) => {
         return (
           <span className="cursor-pointer">
-            {(page - 1) * 20 + (index + 1)}
+            {(page?.page - 1) * page?.limit + (index + 1)}
           </span>
         );
       },
     },
-    {
-      title: "ID",
-      dataIndex: "_id",
-      key: "id",
-    },
+    // {
+    //   title: "ID",
+    //   dataIndex: "_id",
+    //   key: "id",
+    // },
     {
       title: "Name",
       dataIndex: "Name",
@@ -234,10 +240,10 @@ function AllUsers() {
       ),
     },
   ];
+
   useEffect(() => {
     getData();
   }, [page]);
-
   return (
     <div>
       <p className="pageHeading">All Users</p>
@@ -255,7 +261,9 @@ function AllUsers() {
                 <Select.Option value="Phone">Phone</Select.Option>
                 <Select.Option value="_id">User Id</Select.Option>
                 <Select.Option value="referral">Referral By</Select.Option>
-                <Select.Option value="referral_code">Referral Code</Select.Option>
+                <Select.Option value="referral_code">
+                  Referral Code
+                </Select.Option>
               </Select>
             </Form.Item>
           </Col>
@@ -287,8 +295,12 @@ function AllUsers() {
               <Button
                 className=""
                 onClick={() => {
-                  setPage(1);
-                  getData();
+                  if (page?.page !== 1)
+                    setPage({
+                      ...page,
+                      page: 1,
+                    });
+                  else getData();
                 }}
               >
                 Search
@@ -301,6 +313,7 @@ function AllUsers() {
         columns={columns}
         dataSource={data?.result ? data?.result : []}
         pagination={false}
+        loading={loading}
         className="table"
         rowKey={"id"}
         style={{ marginTop: "24px", borderRadius: "0px" }}
@@ -309,11 +322,10 @@ function AllUsers() {
           x: "calc(767px)",
         }}
       />
-      <CustomPagination
+      <CustomPaginationWithPageSize
         currentPage={page}
         setCurrentPage={setPage}
         total={data?.totalCount}
-        itemPerPage={20}
       />
     </div>
   );

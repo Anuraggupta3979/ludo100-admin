@@ -3,12 +3,12 @@ import API_MANAGER from "../../API";
 import { Button, Col, Form, Input, message, Row, Table } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import CustomPagination from "../../components/common/CustomPagination";
+import CustomPaginationWithPageSize from "./CustomPaginationWithPageSize";
 function ChallengeByStatus({ status }) {
   const [data, setData] = useState({});
-  const [search, setSearch] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState(null);
+  const [page, setPage] = useState({ page: 1, limit: 20 });
   const navigate = useNavigate();
   const getData = async () => {
     setLoading(true);
@@ -25,6 +25,7 @@ function ChallengeByStatus({ status }) {
       setLoading(false);
     } catch (error) {
       setLoading(false);
+
       message.error("Something went wrong!");
     }
   };
@@ -34,14 +35,18 @@ function ChallengeByStatus({ status }) {
       dataIndex: "si",
       width: "80px",
       render: (_, row, index) => {
-        return <span className="cursor-pointer">{index + 1}</span>;
+        return (
+          <span className="cursor-pointer">
+            {(page?.page - 1) * page?.limit + (index + 1)}
+          </span>
+        );
       },
     },
-    {
-      title: "ID",
-      dataIndex: "_id",
-      key: "_id",
-    },
+    // {
+    //   title: "ID",
+    //   dataIndex: "_id",
+    //   key: "_id",
+    // },
     {
       title: "Creator",
       dataIndex: "Creator",
@@ -85,6 +90,19 @@ function ChallengeByStatus({ status }) {
         return (
           <span className="cursor-pointer">
             {moment(row?.createdAt).format("LLL")}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Action By",
+      dataIndex: "action_by",
+      key: "action_by",
+      render: (_, row) => {
+        return (
+          <span className="cursor-pointer">
+            {row?.action_by?.Phone}{" "}
+            {row?.action_by?.Name ? `(${row?.action_by?.Name})` : ""}
           </span>
         );
       },
@@ -153,11 +171,11 @@ function ChallengeByStatus({ status }) {
           x: "calc(768px)",
         }}
       />
-      <CustomPagination
+
+      <CustomPaginationWithPageSize
         currentPage={page}
         setCurrentPage={setPage}
         total={data?.totalCount}
-        itemPerPage={20}
       />
     </div>
   );

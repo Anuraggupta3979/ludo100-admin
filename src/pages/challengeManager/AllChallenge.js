@@ -4,14 +4,13 @@ import { Button, Col, Form, Input, message, Row, Table } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import "../../styles/global.scss";
-import CustomPagination from "../../components/common/CustomPagination";
+import CustomPaginationWithPageSize from "../../components/common/CustomPaginationWithPageSize";
 
 function AllChallenge() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({ page: 1, limit: 20 });
   const navigate = useNavigate();
   const getData = async () => {
     setLoading(true);
@@ -35,14 +34,18 @@ function AllChallenge() {
       dataIndex: "si",
       width: "80px",
       render: (_, row, index) => {
-        return <span className="cursor-pointer">{index + 1}</span>;
+        return (
+          <span className="cursor-pointer">
+            {(page?.page - 1) * page?.limit + (index + 1)}
+          </span>
+        );
       },
     },
-    {
-      title: "ID",
-      dataIndex: "_id",
-      key: "_id",
-    },
+    // {
+    //   title: "ID",
+    //   dataIndex: "_id",
+    //   key: "_id",
+    // },
     {
       title: "Creator",
       dataIndex: "Creator",
@@ -155,11 +158,11 @@ function AllChallenge() {
           x: "calc(768px)",
         }}
       />
-      <CustomPagination
+
+      <CustomPaginationWithPageSize
         currentPage={page}
         setCurrentPage={setPage}
         total={data?.totalCount}
-        itemPerPage={20}
       />
     </div>
   );

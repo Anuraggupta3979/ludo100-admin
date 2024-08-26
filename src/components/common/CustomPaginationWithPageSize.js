@@ -1,6 +1,6 @@
 import React from "react";
 import { Pagination, Row, Col } from "antd";
-function CustomPagination({ currentPage, setCurrentPage, total, itemPerPage }) {
+function CustomPaginationWithPageSize({ currentPage, setCurrentPage, total }) {
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
       return (
@@ -47,41 +47,37 @@ function CustomPagination({ currentPage, setCurrentPage, total, itemPerPage }) {
     return originalElement;
   };
 
-  //  total === 0 ? 0 : (current - 1) * pageSize + 1,
-  //     current * pageSize > total ? total : current * pageSize,
   return (
-    <div className="customPagination customPaginationWithoutPageSize">
+    <div className="customPagination customPaginationWithPageSize">
       <Row justify={"end"} align={"middle"}>
-        <Col className="subDesc mt-3">
-          Rows per page{" "}
-          <span>
-            {(currentPage * itemPerPage > total
-              ? total
-              : currentPage * itemPerPage) %
-              itemPerPage ===
-            0
-              ? itemPerPage
-              : (currentPage * itemPerPage > total
-                  ? total
-                  : currentPage * itemPerPage) % itemPerPage}
-          </span>
-        </Col>
         <Col>
           <Pagination
             itemRender={itemRender}
             simple
             total={total}
-            current={currentPage}
+            current={currentPage?.page}
             showTotal={(total, range) => (
               <span className="subDesc pageNumbers">
                 {range[0]}-{range[1]} of {total}
               </span>
             )}
-            onChange={(page) => setCurrentPage(page)}
+            onChange={(page, size) => {
+              if (size === currentPage?.limit)
+                setCurrentPage({
+                  page: page,
+                  limit: size,
+                });
+              else {
+                setCurrentPage({
+                  page: 1,
+                  limit: size,
+                });
+              }
+            }}
             showTitle={false}
-            defaultPageSize={itemPerPage}
+            defaultPageSize={currentPage?.limit || 20}
+            pageSize={currentPage?.limit || 20}
             defaultCurrent={1}
-            pageSizeOptions={[10, 20, 30, 40, 100]}
             hideOnSinglePage
             showQuickJumper={false}
           />
@@ -91,4 +87,4 @@ function CustomPagination({ currentPage, setCurrentPage, total, itemPerPage }) {
   );
 }
 
-export default CustomPagination;
+export default CustomPaginationWithPageSize;

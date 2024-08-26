@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import API_MANAGER from "../../API";
 import { Row, message, Button, Col, Input } from "antd";
 import moment from "moment";
-import { debounce } from "lodash";
 function ViewChallenge() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -12,16 +11,35 @@ function ViewChallenge() {
   const [roomCodeData, setRoomCodeData] = useState(null);
   const checkRoomCode = async (Room_code) => {
     try {
+      // const url = `https://pardeep.morniinc.in/result?code=${Room_code}`;
+      // const options = {
+      //   method: "GET",
+      //   headers: {
+      //     "X-RapidAPI-Key":
+      //       "127c9351d5msh54b0b948e7da6ebp121 e59jsn9163e2425ed7",
+      //     "X-RapidAPI-Host": "ludo-king-room-code-api.p.rapidapi.com",
+      //   },
+      // };
+      // let checkCodeRes;
+      // checkCodeRes = await fetch(url, options);
+      // let result = await checkCodeRes.text();
+      // result = JSON.parse(result);
+      // setRoomCodeData(result);
       const response = await API_MANAGER.checkRoomCode({
         roomCode: Room_code,
       });
+      // let result = await checkCodeRes.text();
+      // result = JSON.parse(result);
       setRoomCodeData(response?.data?.data?.result);
-    } catch (error) {}
+    } catch (error) {
+      // message.error("Something went wrong.");
+    }
   };
+
   function winnAmount(gameAmount) {
     let profit = null;
-    if (gameAmount >= 50 && gameAmount <= 250) profit = (gameAmount * 7) / 100;
-    else if (gameAmount > 250 && gameAmount <= 950)
+    if (gameAmount >= 50 && gameAmount <= 450) profit = (gameAmount * 7) / 100;
+    else if (gameAmount > 450 && gameAmount <= 950)
       profit = (gameAmount * 7) / 100;
     else if (gameAmount > 950) profit = (gameAmount * 5) / 100;
     return gameAmount - profit;
@@ -85,12 +103,8 @@ function ViewChallenge() {
       }
     }
   };
-  const fetchDataDebounced = debounce(async (id) => {
-    if (id) await getData();
-  }, 300);
   useEffect(() => {
-    fetchDataDebounced(id);
-    return fetchDataDebounced.cancel;
+    if (id) getData();
   }, [id]);
   return (
     <div className="viewGameContainer">
@@ -164,7 +178,12 @@ function ViewChallenge() {
               <div>
                 <p className="ludoKingName">
                   Ludo King Name:{" "}
-                  <span className="">{roomCodeData?.ownername}</span>
+                  <span className="">
+                    {/* {roomCodeData?.creator_id === roomCodeData?.player1_id
+                      ? roomCodeData?.player1_name
+                      : roomCodeData?.player2_name}{" "} */}
+                    {roomCodeData?.ownername}
+                  </span>
                 </p>
               </div>
               <div>
@@ -179,7 +198,7 @@ function ViewChallenge() {
                 </p>
               </div>
               <div>
-                <p>
+                <p className="participation_status">
                   Participant Status: <span>{data?.Creator_Status}</span>
                 </p>
               </div>
@@ -317,9 +336,9 @@ function ViewChallenge() {
                 </p>
               </div>
               <div>
-                <p>
+                <p className="participation_status">
                   Participant Status:{" "}
-                  <span>
+                  <span className="">
                     {data?.Acceptor_status ? data?.Acceptor_status : "----"}
                   </span>
                 </p>
@@ -328,6 +347,10 @@ function ViewChallenge() {
                 <p className="ludoKingName">
                   Ludo King Status:{" "}
                   <span>
+                    {/* {roomCodeData?.creator_id === roomCodeData?.player1_id &&
+                    roomCodeData?.player1_status
+                      ? roomCodeData?.player2_status
+                      : "Not Found"} */}
                     {roomCodeData?.player1status
                       ? roomCodeData?.player1status
                       : "Not Found"}

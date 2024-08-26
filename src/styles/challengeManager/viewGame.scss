@@ -6,5 +6,24 @@
     border-top: 2px solid #f72586;
     border-radius: 8px;
     background: #ffeef6;
+    p {
+      margin: 8px 0px !important;
+    }
+  }
+  .ludoKingName {
+    font-weight: bold;
+    font-size: 16px !important;
+    color: #040524 !important;
+    span {
+      color: #a02c27 !important;
+    }
+  }
+  .participation_status {
+    font-weight: bold;
+    font-size: 16px !important;
+    color: #040524 !important;
+    span {
+      color: blue !important;
+    }
   }
 }

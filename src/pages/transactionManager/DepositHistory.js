@@ -14,19 +14,19 @@ import API_MANAGER from "../../API";
 import moment from "moment";
 import CustomPagination from "../../components/common/CustomPagination";
 import { useNavigate } from "react-router-dom";
+import CustomPaginationWithPageSize from "../../components/common/CustomPaginationWithPageSize";
 function DepositHistory() {
   const navigate = useNavigate();
   const [data, setData] = useState();
   const [search, setSearch] = useState(null);
   const [searchStatus, setSearchStatus] = useState(null);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({ page: 1, limit: 20 });
   const [loading, setLoading] = useState(false);
   const Profile = async () => {
     try {
       setLoading(true);
       let params = {
-        limit: 20,
-        page: page,
+        ...page,
         search: search,
       };
       if (searchStatus) {
@@ -34,7 +34,6 @@ function DepositHistory() {
       }
       const response = await API_MANAGER.getDepositHistory(params);
       setData(response?.data?.data);
-      // setPage(response?.data?.data?.totalPages);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -106,24 +105,10 @@ function DepositHistory() {
       checkupigatewaypay(order_id, order_token, payment_gatway);
     }
   };
-  const balanceUpdate = async (txn, keyx) => {
-    try {
-      const params = {
-        txn: txn,
-        keyx: keyx,
-      };
-      const response = await API_MANAGER.balanceUpdate(params);
-      Profile();
-    } catch (error) {}
-  };
-  const handleFail = async (e, id) => {
-    balanceUpdate(id, e);
-  };
 
   useEffect(() => {
     Profile();
   }, [page, search, searchStatus]);
-
   const newdateFormat = (e) => {
     let today = new Date(e);
     let dd = String(today?.getDate()).padStart(2, "0");
@@ -140,16 +125,12 @@ function DepositHistory() {
       render: (_, row, index) => {
         return (
           <span className="cursor-pointer">
-            {(page - 1) * 20 + (index + 1)}
+            {(page?.page - 1) * page?.limit + (index + 1)}
           </span>
         );
       },
     },
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
+
     {
       title: "Phone",
       dataIndex: "Phone",
@@ -344,11 +325,10 @@ function DepositHistory() {
           x: "calc(768px)",
         }}
       />
-      <CustomPagination
+      <CustomPaginationWithPageSize
         currentPage={page}
         setCurrentPage={setPage}
         total={data?.totalCount}
-        itemPerPage={20}
       />
     </div>
   );

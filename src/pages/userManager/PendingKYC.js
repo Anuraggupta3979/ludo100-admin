@@ -5,17 +5,18 @@ import infoIcon from "../../Assets/infoIcon.svg";
 import CustomPagination from "../../components/common/CustomPagination";
 import API_MANAGER from "../../API";
 import { useNavigate } from "react-router-dom";
+import CustomPaginationWithPageSize from "../../components/common/CustomPaginationWithPageSize";
 
 function PendingKYC() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({ page: 1, limit: 20 });
   const [data, setData] = useState();
+
   const navigate = useNavigate();
 
   const getData = async () => {
     try {
       const params = {
-        limit: 10,
-        page: page,
+        ...page,
       };
       const response = await API_MANAGER.getPendingKYC(params);
       setData(response?.data?.data);
@@ -83,16 +84,16 @@ function PendingKYC() {
       render: (_, row, index) => {
         return (
           <span className="cursor-pointer">
-            {(page - 1) * 10 + (index + 1)}
+            {(page?.page - 1) * page?.limit + (index + 1)}
           </span>
         );
       },
     },
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
+    // {
+    //   title: "ID",
+    //   dataIndex: "id",
+    //   key: "id",
+    // },
     {
       title: "Profile name",
       dataIndex: "Name",
@@ -214,11 +215,10 @@ function PendingKYC() {
           x: "calc(768px)",
         }}
       />
-      <CustomPagination
+      <CustomPaginationWithPageSize
         currentPage={page}
         setCurrentPage={setPage}
         total={data?.totalCount}
-        itemPerPage={10}
       />
     </div>
   );

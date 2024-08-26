@@ -115,9 +115,7 @@ body {
     border-left: 1px solid #e7e8f2;
   }
 }
-.ant-pagination-options {
-  display: none !important;
-}
+
 .allAdminTitle {
   color: #000;
   text-align: center;
@@ -185,5 +183,15 @@ thead th {
   color: #040524 !important;
   span {
     color: #a02c27 !important;
+  }
+}
+.customPaginationWithoutPageSize {
+  .ant-pagination-options {
+    display: none !important;
+  }
+}
+.customPaginationWithPageSize {
+  .ant-pagination-options {
+    display: inline-block !important;
   }
 }

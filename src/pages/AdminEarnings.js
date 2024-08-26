@@ -3,19 +3,22 @@ import API_MANAGER from "../API";
 import { DatePicker, Row, Table, message, Col } from "antd";
 import moment from "moment";
 import CustomPagination from "../components/common/CustomPagination";
+import CustomPaginationWithPageSize from "../components/common/CustomPaginationWithPageSize";
 
 function AdminEarnings() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({
+    page: 1,
+    limit: 20,
+  });
   const [data, setData] = useState([]);
   const [totalEarning, setTotalEarning] = useState(0);
   const [loading, setLoading] = useState(false);
   const getData = async () => {
     try {
       let params = {
-        page: page,
-        limit: 20,
+        ...page,
       };
       if (startDate && endDate) {
         params["FROM_DATE"] = startDate;
@@ -49,9 +52,12 @@ function AdminEarnings() {
   };
 
   useEffect(() => {
-    getData();
     getTotalEarning();
+  }, [startDate, endDate]);
+  useEffect(() => {
+    getData();
   }, [page, startDate, endDate]);
+
   const columns = [
     {
       title: "No.",
@@ -60,16 +66,16 @@ function AdminEarnings() {
       render: (_, row, index) => {
         return (
           <span className="cursor-pointer">
-            {(page - 1) * 20 + (index + 1)}
+            {(page?.page - 1) * page?.limit + (index + 1)}
           </span>
         );
       },
     },
-    {
-      title: "Earn From",
-      dataIndex: "Earned_Form",
-      key: "Earned_Form",
-    },
+    // {
+    //   title: "Earn From",
+    //   dataIndex: "Earned_Form",
+    //   key: "Earned_Form",
+    // },
     {
       title: "Amount",
       dataIndex: "Ammount",
@@ -107,16 +113,15 @@ function AdminEarnings() {
           loading={loading}
           rowKey={"id"}
           style={{ marginTop: "24px" }}
-          scroll={{
-            // y: "calc(100vh - 400px)",
-            x: "calc(768px + 40%)",
-          }}
+          // scroll={{
+          //   // y: "calc(100vh - 400px)",
+          //   x: "calc(768px + 40%)",
+          // }}
         />
-        <CustomPagination
+        <CustomPaginationWithPageSize
           currentPage={page}
           setCurrentPage={setPage}
           total={data?.totalCount}
-          itemPerPage={20}
         />
       </div>
     </div>
