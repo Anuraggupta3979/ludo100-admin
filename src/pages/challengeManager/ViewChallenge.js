@@ -237,7 +237,7 @@ function ViewChallenge() {
                 <div>
                   <p>Proof:</p>
                   <img
-                    src={`https://starludo1.s3.ap-south-1.amazonaws.com/${data?.Creator_Screenshot}`}
+                    src={`https://ludo1002.s3.ap-south-1.amazonaws.com/${data?.Creator_Screenshot}`}
                     style={{
                       width: "100%",
                       maxHeight: "1000px",
@@ -380,7 +380,7 @@ function ViewChallenge() {
                 <div>
                   <p>Proof:</p>
                   <img
-                    src={`https://starludo1.s3.ap-south-1.amazonaws.com/${data?.Acceptor_screenshot}`}
+                    src={`https://ludo1002.s3.ap-south-1.amazonaws.com/${data?.Acceptor_screenshot}`}
                     style={{
                       width: "100%",
                       maxHeight: "1000px",
