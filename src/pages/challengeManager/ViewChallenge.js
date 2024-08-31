@@ -30,6 +30,8 @@ function ViewChallenge() {
       });
       // let result = await checkCodeRes.text();
       // result = JSON.parse(result);
+      console.log(response, "response");
+
       setRoomCodeData(response?.data?.data?.result);
     } catch (error) {
       // message.error("Something went wrong.");
@@ -38,7 +40,7 @@ function ViewChallenge() {
 
   function winnAmount(gameAmount) {
     let profit = null;
-    if (gameAmount >= 50 && gameAmount <= 450) profit = (gameAmount * 7) / 100;
+    if (gameAmount >= 50 && gameAmount <= 450) profit = (gameAmount * 10) / 100;
     else if (gameAmount > 450 && gameAmount <= 950)
       profit = (gameAmount * 7) / 100;
     else if (gameAmount > 950) profit = (gameAmount * 5) / 100;
@@ -235,7 +237,7 @@ function ViewChallenge() {
                 <div>
                   <p>Proof:</p>
                   <img
-                    src={`https://ludo1002.s3.ap-south-1.amazonaws.com/${data?.Creator_Screenshot}`}
+                    src={`https://starludo1.s3.ap-south-1.amazonaws.com/${data?.Creator_Screenshot}`}
                     style={{
                       width: "100%",
                       maxHeight: "1000px",
@@ -378,7 +380,7 @@ function ViewChallenge() {
                 <div>
                   <p>Proof:</p>
                   <img
-                    src={`https://ludo1002.s3.ap-south-1.amazonaws.com/${data?.Acceptor_screenshot}`}
+                    src={`https://starludo1.s3.ap-south-1.amazonaws.com/${data?.Acceptor_screenshot}`}
                     style={{
                       width: "100%",
                       maxHeight: "1000px",
