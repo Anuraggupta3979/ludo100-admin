@@ -119,9 +119,7 @@ function RejectKYC() {
       title: "Date",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (item) => (
-        <span>{moment(item).format("DD/MM/YYYY HH:MM a")}</span>
-      ),
+      render: (item) => <span>{moment(item).format("LLL")}</span>,
     },
   ];
 
