@@ -620,7 +620,7 @@ const API_MANAGER = {
   getDepositHistoryById: (id, params) => {
     return HELPERS.secureRequest({
       baseURL,
-      url: `transaction/user/temp-deposit/${id}`,
+      url: `transaction/user/user-deposit/${id}`,
       method: "GET",
       params: params,
       headers: {
