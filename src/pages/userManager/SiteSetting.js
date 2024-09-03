@@ -14,6 +14,7 @@ function SiteSetting() {
         depositType: response?.data?.data?.depositType,
         isDeposit: response?.data?.data?.isDeposit,
         depositErrorMsg: response?.data?.data?.depositErrorMsg,
+        isRoomCodeByPass: response?.data?.data?.isRoomCodeByPass,
         alert1: response?.data?.data?.alert1,
         alert2: response?.data?.data?.alert2,
         alert3: response?.data?.data?.alert3,
@@ -103,7 +104,24 @@ function SiteSetting() {
                   ]}
                 />
               </Form.Item>
-            </Col>{" "}
+            </Col>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                name={"isRoomCodeByPass"}
+                label="Roomcode Bypass"
+                rules={[
+                  { required: true, message: "Please select roomcode bypass" },
+                ]}
+              >
+                <Select
+                  placeholder="Select deposit type"
+                  options={[
+                    { label: "On", value: true },
+                    { label: "Off", value: false },
+                  ]}
+                />
+              </Form.Item>
+            </Col>
             <Col xs={24} sm={12} md={8}>
               <Form.Item
                 name={"depositErrorMsg"}
