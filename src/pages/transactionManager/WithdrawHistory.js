@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Table, Button, Form, Select, Input, message } from "antd";
+import { Row, Col, Table, message } from "antd";
 import API_MANAGER from "../../API";
 import moment from "moment";
 import CustomPagination from "../../components/common/CustomPagination";
@@ -7,10 +7,8 @@ import { useNavigate } from "react-router-dom";
 function WithdrawalHistory() {
   const navigate = useNavigate();
   const [data, setData] = useState();
-  const [search, setSearch] = useState(null);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [searchStatus, setSearchStatus] = useState(null);
 
   const getData = async () => {
     setLoading(true);
@@ -19,12 +17,7 @@ function WithdrawalHistory() {
         limit: 20,
         page: page,
       };
-      if (search) {
-        params["search"] = search;
-      }
-      if (searchStatus) {
-        params["searchStatus"] = searchStatus;
-      }
+
       const response = await API_MANAGER.getWithdrawHistory(params);
       setData(response?.data?.data);
       setLoading(false);
@@ -115,45 +108,7 @@ function WithdrawalHistory() {
   return (
     <div className="deposit_history">
       <Row className="pageHeading mb-20">Withdrawl History</Row>
-      <Form layout="vertical">
-        <Row gutter={24} align={"middle"}>
-          <Col xs={12} lg={6}>
-            <Form.Item label="Search " name={"search"}>
-              <Input
-                placeholder="Search"
-                // className="inputBox"
-                onChange={(e) => setSearch(e?.target?.value)}
-              />
-            </Form.Item>
-          </Col>
-          <Col xs={12} lg={6}>
-            <Form.Item label="Select Status" name={"status"}>
-              <Select
-                // className="selectBox"
-                onChange={(e) => setSearchStatus(e)}
-                placeholder="Select Status"
-              >
-                <Select.Option value="SUCCESS">Paid</Select.Option>
-                <Select.Option value="Pending">Pending</Select.Option>
-                <Select.Option value="FAILED">Failed</Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col className="mt-32">
-            <Form.Item>
-              <Button
-                className=""
-                onClick={() => {
-                  setPage(1);
-                  getData();
-                }}
-              >
-                Search
-              </Button>
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form>
+
       <Table
         columns={columns}
         dataSource={data?.result}

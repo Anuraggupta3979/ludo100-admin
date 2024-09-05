@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Input, Button, Dropdown, message } from "antd";
-import infoIcon from "../../Assets/infoIcon.svg";
+import { Row, Col, Table, Button, message } from "antd";
 import API_MANAGER from "../../API";
 import CustomPagination from "../../components/common/CustomPagination";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,6 @@ import moment from "moment";
 function WithdrawalRequest() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState();
-  const [search, setSearch] = useState(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const getData = async () => {
@@ -20,7 +18,6 @@ function WithdrawalRequest() {
         status: "Pending",
         limit: 10,
         page: page,
-        search: search,
       });
       setData(response?.data?.data);
       setLoading(false);
@@ -84,124 +81,11 @@ function WithdrawalRequest() {
       } catch (error) {}
     }
   };
-  const handleUpdate = async (amount, type, userID, txnID, reqID) => {
-    try {
-      const params = {
-        amount: amount,
-        type: type,
-        userID: userID,
-        txnID: txnID,
-        reqID: reqID,
-      };
-      var pathUrl = `withdraw/payoutmanualupi`;
-      if (type == "upi") {
-        var pathUrl = `withdraw/razorpay/adminmanual`;
-      }
-      const response = await API_MANAGER.updateWithdraw(params);
-      getData();
-    } catch (error) {
-      message.error("Something went wrong, please try later!");
-    }
-    //bank
-  };
-  const handleReject = async (id) => {
-    try {
-      const response = await API_MANAGER.withdrawReject(
-        {
-          status: "reject",
-        },
-        id
-      );
-
-      message.success("Rejected Successfully!");
-      getData();
-    } catch (error) {
-      message.error("Something went wrong, please try later!");
-    }
-  };
 
   useEffect(() => {
     getData();
-  }, [page, search]);
+  }, [page]);
 
-  const handleItems = (row) => {
-    return [
-      {
-        key: "1",
-        label: (
-          <div className="action-dropdown">
-            {/* {row?.status === "Pending" && (
-              <Row>
-                <Col
-                  className="item"
-                  span={24}
-                  onClick={() =>
-                    handleUpdate(
-                      row?.amount,
-                      row?.type,
-                      row?.user._id,
-                      row?.txn_id,
-                      row?._id
-                    )
-                  }
-                >
-                  <span>Approve</span>
-                </Col>
-              </Row>
-            )} */}
-            {/* {row?.status === "Pending" && (
-              <Row>
-                <Col
-                  onClick={() => {
-                    handleReject(row?._id);
-                  }}
-                  className="item"
-                  span={24}
-                >
-                  <span>Reject</span>
-                </Col>
-              </Row>
-            )} */}
-            {row?.status !== "SUCCESS" &&
-              row?.status !== "FAILED" &&
-              row?.status !== "reject" && (
-                <Row>
-                  <Col
-                    className="item"
-                    span={24}
-                    onClick={() => withdrawPas2(row?.txn_id)}
-                  >
-                    <span>Approve By Admin</span>
-                  </Col>
-                </Row>
-              )}
-            {row?.status !== "SUCCESS" &&
-              row?.status !== "FAILED" &&
-              row?.status !== "reject" && (
-                <Row>
-                  <Col
-                    className="item"
-                    span={24}
-                    onClick={() => withdrawFail(row?.txn_id)}
-                  >
-                    <span>Reject By Admin</span>
-                  </Col>
-                </Row>
-              )}
-            <Row>
-              <Col
-                className="item"
-                span={24}
-                onClick={() => withdrawPass(row?.txn_id)}
-              >
-                <span>Check Status</span>
-              </Col>
-            </Row>
-          </div>
-        ),
-      },
-    ];
-  };
   const columns = [
     {
       title: "No.",
@@ -324,24 +208,6 @@ function WithdrawalRequest() {
               Check
             </Button>
           </Col>
-          {/* <Dropdown
-            placement="bottom"
-            overlayClassName="action-dropdown"
-            menu={{
-              items: handleItems(row),
-            }}
-            trigger={"click"}
-          >
-            <img
-              onClick={(e) => {
-                e.preventDefault();
-                // setRowData(row);
-              }}
-              className="cursor_pointer"
-              src={infoIcon}
-              alt="edit"
-            />
-          </Dropdown> */}
         </Row>
       ),
     },
@@ -349,19 +215,7 @@ function WithdrawalRequest() {
   return (
     <div className="deposit_history">
       <Row className="pageHeading mb-20">Withdrawal Request</Row>
-      <Row align={"middle"} gutter={[24, 24]}>
-        <Col>
-          <Input
-            placeholder="Search"
-            // className="inputBox"
-            value={search}
-            onChange={(e) => setSearch(e?.target?.value)}
-          />
-        </Col>
-        <Col>
-          <Button className="">Search</Button>
-        </Col>
-      </Row>
+
       <Table
         columns={columns}
         dataSource={data?.result ? data?.result : []}
