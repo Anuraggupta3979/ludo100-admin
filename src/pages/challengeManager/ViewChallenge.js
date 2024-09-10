@@ -11,26 +11,9 @@ function ViewChallenge() {
   const [roomCodeData, setRoomCodeData] = useState(null);
   const checkRoomCode = async (Room_code) => {
     try {
-      // const url = `https://pardeep.morniinc.in/result?code=${Room_code}`;
-      // const options = {
-      //   method: "GET",
-      //   headers: {
-      //     "X-RapidAPI-Key":
-      //       "127c9351d5msh54b0b948e7da6ebp121 e59jsn9163e2425ed7",
-      //     "X-RapidAPI-Host": "ludo-king-room-code-api.p.rapidapi.com",
-      //   },
-      // };
-      // let checkCodeRes;
-      // checkCodeRes = await fetch(url, options);
-      // let result = await checkCodeRes.text();
-      // result = JSON.parse(result);
-      // setRoomCodeData(result);
       const response = await API_MANAGER.checkRoomCode({
         roomCode: Room_code,
       });
-      // let result = await checkCodeRes.text();
-      // result = JSON.parse(result);
-      console.log(response, "response");
 
       setRoomCodeData(response?.data?.data?.result);
     } catch (error) {
@@ -50,8 +33,8 @@ function ViewChallenge() {
     try {
       const response = await API_MANAGER.getChallengeById(id);
       setData(response?.data?.data);
-      if (response?.data?.data?.Room_code)
-        await checkRoomCode(response?.data?.data?.Room_code);
+      // if (response?.data?.data?.Room_code)
+      //   await checkRoomCode(response?.data?.data?.Room_code);
     } catch (error) {
       // message.error("Something went wrong!");
     }
