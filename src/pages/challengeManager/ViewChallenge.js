@@ -23,7 +23,9 @@ function ViewChallenge() {
 
   function winnAmount(gameAmount) {
     let profit = null;
-    if (gameAmount >= 50 && gameAmount <= 450) profit = (gameAmount * 10) / 100;
+    if (gameAmount >= 10 && gameAmount <= 49) profit = (gameAmount * 20) / 100;
+    else if (gameAmount >= 50 && gameAmount <= 450)
+      profit = (gameAmount * 10) / 100;
     else if (gameAmount > 450 && gameAmount <= 950)
       profit = (gameAmount * 7) / 100;
     else if (gameAmount > 950) profit = (gameAmount * 5) / 100;
