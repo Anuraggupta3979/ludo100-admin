@@ -8,7 +8,7 @@ import UserDepositHistory from "../../components/common/user/UserDepositHistory"
 import UserReferHistory from "../../components/common/user/UserReferHistory";
 import UserWithDrawHistory from "../../components/common/user/UserWithDrawHistory";
 import UserKYC from "../../components/common/user/UserKYC";
-function ViewUser() {
+function ViewUser({ permissions }) {
   const [user, setUser] = useState({});
   let [mismatchValue, setMisMatchValue] = useState(0);
   const [referCount, setReferralcount] = useState([]);
@@ -337,21 +337,24 @@ function ViewUser() {
               </p>
             </div>
           </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <div className="userCard">
-              <p className="item">DEPOSIT MONEY</p>
-              <p className="value">
-                <Button
-                  onClick={() => {
-                    setAction("Deposit");
-                    setIsCredVisible(true);
-                  }}
-                >
-                  Deposit
-                </Button>
-              </p>
-            </div>
-          </Col>
+          {permissions?.panelty_and_bonus && (
+            <Col xs={24} sm={12} md={8} lg={6}>
+              <div className="userCard">
+                <p className="item">DEPOSIT MONEY</p>
+                <p className="value">
+                  <Button
+                    onClick={() => {
+                      setAction("Deposit");
+                      setIsCredVisible(true);
+                    }}
+                  >
+                    Deposit
+                  </Button>
+                </p>
+              </div>
+            </Col>
+          )}
+
           <Col xs={24} sm={12} md={8} lg={6}>
             <div className="userCard">
               <p className="item">Cut MONEY</p>

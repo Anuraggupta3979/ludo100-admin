@@ -84,7 +84,10 @@ const CustomRoutes = () => {
         {permissions?.withdrawal_request && (
           <Route path="/withdrawal-request" element={<WithdrawalRequest />} />
         )}
-        <Route path="/user/view/:id" element={<ViewUser />} />
+        <Route
+          path="/user/view/:id"
+          element={<ViewUser permissions={permissions} />}
+        />
         {permissions?.conflict_games && (
           <Route path="/conflict-challenges" element={<ConflictChallenges />} />
         )}

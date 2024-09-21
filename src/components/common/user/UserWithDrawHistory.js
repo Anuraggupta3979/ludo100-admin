@@ -46,7 +46,24 @@ function UserWithDrawHistory({ id }) {
       dataIndex: "_id",
       key: "_id",
     },
-
+    {
+      title: "Account No.",
+      dataIndex: "account_number",
+      key: "account_number",
+      render: (item, row) => <span>{row?.account_number}</span>,
+    },
+    {
+      title: "IFSC Code",
+      dataIndex: "ifsc_code",
+      key: "ifsc_code",
+      render: (item, row) => <span>{row?.ifsc_code}</span>,
+    },
+    {
+      title: "Bank Name",
+      dataIndex: "bank_name",
+      key: "bank_name",
+      render: (item, row) => <span>{row?.bank_name}</span>,
+    },
     {
       title: "Amount",
       dataIndex: "amount",
@@ -74,25 +91,6 @@ function UserWithDrawHistory({ id }) {
       key: "updatedAt",
       render: (item) => <span>{moment(item).format("LLL")}</span>,
     },
-    {
-      title: "Account No.",
-      dataIndex: "account_number",
-      key: "account_number",
-      render: (item, row) => <span>{row?.account_number}</span>,
-    },
-    {
-      title: "IFSC Code",
-      dataIndex: "ifsc_code",
-      key: "ifsc_code",
-      render: (item, row) => <span>{row?.ifsc_code}</span>,
-    },
-    {
-      title: "Bank Name",
-      dataIndex: "bank_name",
-      key: "bank_name",
-      render: (item, row) => <span>{row?.bank_name}</span>,
-    },
-    ,
   ];
   return (
     <div>
