@@ -252,17 +252,7 @@ const API_MANAGER = {
       },
     });
   },
-  getDashboardChallenge: (params) => {
-    return HELPERS.secureRequest({
-      baseURL,
-      url: `/games/admin/challange/dashboard/all`,
-      method: "GET",
-      params: params,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  },
+
   getAllChallenges: (params) => {
     return HELPERS.secureRequest({
       baseURL,

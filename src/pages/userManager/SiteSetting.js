@@ -15,6 +15,7 @@ function SiteSetting() {
         isDeposit: response?.data?.data?.isDeposit,
         depositErrorMsg: response?.data?.data?.depositErrorMsg,
         isRoomCodeByPass: response?.data?.data?.isRoomCodeByPass,
+        allActionClose: response?.data?.data?.allActionClose,
         alert1: response?.data?.data?.alert1,
         alert2: response?.data?.data?.alert2,
         alert3: response?.data?.data?.alert3,
@@ -115,6 +116,21 @@ function SiteSetting() {
               >
                 <Select
                   placeholder="Select deposit type"
+                  options={[
+                    { label: "On", value: true },
+                    { label: "Off", value: false },
+                  ]}
+                />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                name={"allActionClose"}
+                label="All Action Off"
+                rules={[{ required: true, message: "Please select" }]}
+              >
+                <Select
+                  placeholder="Select"
                   options={[
                     { label: "On", value: true },
                     { label: "Off", value: false },
