@@ -35,6 +35,8 @@ import BlockedUsers from "../pages/userManager/BlockedUsers";
 import SiteSetting from "../pages/userManager/SiteSetting";
 import CheckChallange from "../pages/challengeManager/CheckChallange";
 import RedeemHistory from "../pages/transactionManager/RedeemHistory";
+import AllmismatchUsers from "../pages/userManager/AllMismatchUsers";
+import AllNegativeHoldUsers from "../pages/userManager/AllNegativeHoldUsers";
 const CustomRoutes = () => {
   const [data, setData] = useState({});
   const [permissions, setPermissions] = useState({});
@@ -119,6 +121,15 @@ const CustomRoutes = () => {
         )}
         {permissions?.all_users && (
           <Route path="/user-all" element={<AllUsers />} />
+        )}
+        {permissions?.all_users && (
+          <Route path="/user-mismatch-all" element={<AllmismatchUsers />} />
+        )}
+        {permissions?.all_users && (
+          <Route
+            path="/user-negative-hold-all"
+            element={<AllNegativeHoldUsers />}
+          />
         )}
         {permissions?.blocked_users && (
           <Route path="/blocked-users" element={<BlockedUsers />} />

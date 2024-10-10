@@ -158,6 +158,42 @@ const CustomLayout = ({ permissions, children }) => {
           },
         ];
       }
+      if (permissions?.all_users) {
+        tempChildren = [
+          ...tempChildren,
+          {
+            key: "All Mismatch Users",
+            label: (
+              <p
+                className="menu_link"
+                onClick={() => {
+                  navigate("/user-mismatch-all");
+                }}
+              >
+                All MissMatch Users
+              </p>
+            ),
+          },
+        ];
+      }
+      if (permissions?.all_users) {
+        tempChildren = [
+          ...tempChildren,
+          {
+            key: "All Negative Hold Users",
+            label: (
+              <p
+                className="menu_link"
+                onClick={() => {
+                  navigate("/user-negative-hold-all");
+                }}
+              >
+                All Negative Hold Users
+              </p>
+            ),
+          },
+        ];
+      }
 
       if (permissions?.pending_kyc) {
         tempChildren = [
@@ -872,6 +908,28 @@ const CustomLayout = ({ permissions, children }) => {
                   className="subLink"
                 >
                   All Users
+                </h3>
+              )}
+              {permissions?.all_users && (
+                <h3
+                  onClick={() => {
+                    navigate("/user-mismatch-all");
+                    setOpenDrawer(false);
+                  }}
+                  className="subLink"
+                >
+                  All Mismatch Users
+                </h3>
+              )}
+              {permissions?.all_users && (
+                <h3
+                  onClick={() => {
+                    navigate("/user-negative-hold-all");
+                    setOpenDrawer(false);
+                  }}
+                  className="subLink"
+                >
+                  All Negative Hold Users
                 </h3>
               )}
               {permissions?.blocked_users && (

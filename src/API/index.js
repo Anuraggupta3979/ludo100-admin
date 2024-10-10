@@ -65,6 +65,28 @@ const API_MANAGER = {
       },
     });
   },
+  getAllMismatchUsers: (params) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `user/all-mismatch-users`,
+      method: "GET",
+      params: params,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  getAllNegativeHoldUsers: (params) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `user/all-negative-hold-users`,
+      method: "GET",
+      params: params,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
   getAllPenalty: (params) => {
     return HELPERS.secureRequest({
       baseURL,
