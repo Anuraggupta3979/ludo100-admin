@@ -37,6 +37,7 @@ import CheckChallange from "../pages/challengeManager/CheckChallange";
 import RedeemHistory from "../pages/transactionManager/RedeemHistory";
 import AllmismatchUsers from "../pages/userManager/AllMismatchUsers";
 import AllNegativeHoldUsers from "../pages/userManager/AllNegativeHoldUsers";
+import DummyGames from "../pages/DummyGames";
 const CustomRoutes = () => {
   const [data, setData] = useState({});
   const [permissions, setPermissions] = useState({});
@@ -170,6 +171,9 @@ const CustomRoutes = () => {
             element={<Notification userData={data} />}
           />
         )}{" "}
+        {permissions?.site_setting && (
+          <Route path="/dummy-games" element={<DummyGames />} />
+        )}
         {permissions?.contact && (
           <Route path="/contacts" element={<Contacts />} />
         )}

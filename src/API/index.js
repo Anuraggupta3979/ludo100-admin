@@ -694,6 +694,60 @@ const API_MANAGER = {
       },
     });
   },
+  getAllDummmyGames: () => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `/dgames`,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  deleteDummyGames: (id) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `dgames?id=${id}`,
+      method: "DELETE",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  updateUserInfo: (id, data) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `user/12-ludo100-am-update-hold-mismatch-wallet-user-am-34/${id}`,
+      method: "PATCH",
+      data: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  createDummyGames: (data) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `dgames`,
+      method: "POST",
+      data: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  editDummyGames: (data, id) => {
+    return HELPERS.secureRequest({
+      baseURL,
+      url: `dgames/${id}`,
+      method: "PATCH",
+      data: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
 };
 
 export default API_MANAGER;

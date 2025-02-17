@@ -690,6 +690,26 @@ const CustomLayout = ({ permissions, children }) => {
       tempItems = [
         ...tempItems,
         {
+          key: "dummy_games",
+          icon: <SettingFilled />,
+
+          label: (
+            <p
+              className="menu_link"
+              onClick={() => {
+                navigate("/dummy-games");
+              }}
+            >
+              Dummy Games
+            </p>
+          ),
+        },
+      ];
+    }
+    if (permissions?.site_setting) {
+      tempItems = [
+        ...tempItems,
+        {
           key: "site_settings",
           icon: <SettingFilled />,
 
@@ -1272,6 +1292,17 @@ const CustomLayout = ({ permissions, children }) => {
               }}
             >
               Notification
+            </p>
+          )}
+          {permissions?.site_setting && (
+            <p
+              onClick={() => {
+                navigate("/dummy-games");
+                setOpenDrawer(false);
+              }}
+              className="mobileMenuLink"
+            >
+              Dummy Games
             </p>
           )}
           {permissions?.site_setting && (

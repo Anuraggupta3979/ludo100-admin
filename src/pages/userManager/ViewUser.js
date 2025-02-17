@@ -1,4 +1,14 @@
-import { Row, Col, message, Button, Radio, Form, Modal, Input } from "antd";
+import {
+  Row,
+  Col,
+  message,
+  Button,
+  Radio,
+  Form,
+  Modal,
+  Input,
+  Select,
+} from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -12,12 +22,14 @@ function ViewUser({ permissions }) {
   const [user, setUser] = useState({});
   let [mismatchValue, setMisMatchValue] = useState(0);
   const [referCount, setReferralcount] = useState([]);
+  const [updateUser, setUpdateUser] = useState(false);
   const [reportType, setReportType] = useState("Game");
   const { id } = useParams();
   const [form] = Form.useForm();
   const [isVisible, setIsVisible] = useState(false);
   const [isCredVisible, setIsCredVisible] = useState(false);
   const [action, setAction] = useState("");
+
   const referralCount = async (referral_code) => {
     try {
       const response = await API_MANAGER.referralCount(referral_code);
@@ -48,6 +60,21 @@ function ViewUser({ permissions }) {
     } catch (error) {
       message.error(error?.response?.data?.message || "Something went wrong!");
     }
+  };
+  const handleUserUpdateSubmit = async (data) => {
+    try {
+      if (data?.type && data?.amount) {
+        await API_MANAGER.updateUserInfo(user?._id, {
+          [data?.type]: data?.amount,
+        });
+        setUpdateUser(false);
+        message.success("Updated Successfully!");
+        getData();
+      }
+    } catch (error) {
+      message.error(error?.response?.data?.message || "Something went wrong!");
+    }
+    // axios.patch(baseUrl + `user/Hold/clear/${Id}`, { headers }).then((res) => {
   };
   const updateMismatch = async (id) => {
     try {
@@ -103,6 +130,57 @@ function ViewUser({ permissions }) {
   return (
     <div>
       <div className="deposit_history">
+        <Modal
+          onCancel={() => setUpdateUser(false)}
+          centered
+          open={updateUser}
+          footer={false}
+          title="Update User"
+        >
+          <Form
+            layout="vertical"
+            requiredMark={false}
+            onFinish={handleUserUpdateSubmit}
+          >
+            <Form.Item
+              name={"type"}
+              label="Select type"
+              rules={[{ required: "true", message: "Please select type" }]}
+            >
+              <Select>
+                {/* <Select.Option value="Name"> Name</Select.Option> */}
+                <Select.Option value="Wallet_balance">
+                  Wallet Balance
+                </Select.Option>
+                <Select.Option value="hold_balance">Hold Balance</Select.Option>
+                <Select.Option value="wonAmount">Won Amount</Select.Option>
+                <Select.Option value="loseAmount">Lose Amount</Select.Option>
+                <Select.Option value="withdrawAmount">
+                  Withdraw Amount
+                </Select.Option>
+                <Select.Option value="totalWithdrawl">
+                  Total Withdraw
+                </Select.Option>
+                <Select.Option value="referral">Refer By</Select.Option>
+                <Select.Option value="referral_code">
+                  Referral Code
+                </Select.Option>
+                <Select.Option value="referral_wallet">
+                  Referral Wallet
+                </Select.Option>
+                <Select.Option value="max_limit">Max Limit</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name={"amount"}
+              label="Enter"
+              rules={[{ required: "true", message: "Please enter value" }]}
+            >
+              <Input placeholder="Enter value." />
+            </Form.Item>
+            <Button htmlType="submit">Submit</Button>
+          </Form>
+        </Modal>
         <Modal
           title="UserInfo"
           footer={false}
@@ -385,7 +463,20 @@ function ViewUser({ permissions }) {
               </p>
             </div>
           </Col>
+          {permissions?.update_user && (
+            <Col xs={24} sm={12} md={8} lg={6}>
+              <div className="userCard">
+                <p className="item">Update User</p>
+                <p className="value">
+                  <Button onClick={() => setUpdateUser(true)}>
+                    Update User
+                  </Button>
+                </p>
+              </div>
+            </Col>
+          )}
         </Row>
+
         <p className="heading">History</p>
         <div className="radioButtons">
           <Radio.Group
